@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+
+  install:
+    commands:
+      - echo Installing Terraform
+      - curl -LO https://releases.hashicorp.com/terraform/1.7.5/terraform_1.7.5_linux_amd64.zip
+      - unzip terraform_1.7.5_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+      - pip install checkov
+
+  pre_build:
+    commands:
+      - echo Terraform Init
+      - terraform init
+
+  build:
+    commands:
+      - echo Terraform Validate
+      - terraform validate
+      - echo Running Security Scan
+      - checkov -d .
+      - echo Terraform Plan
+      - terraform plan
+
+artifacts:
+  files:
+    - '**/*'
