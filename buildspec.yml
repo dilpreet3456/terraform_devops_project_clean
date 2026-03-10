@@ -19,7 +19,7 @@ phases:
       - terraform validate
       - echo Running Security Scan
       - checkov -d . || true
-      - terraform plan
+      - terraform plan -var-file="dev.tfvars"
 
 artifacts:
   files:
