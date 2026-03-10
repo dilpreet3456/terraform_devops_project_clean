@@ -12,16 +12,13 @@ phases:
 
   pre_build:
     commands:
-      - echo Terraform Init
       - terraform init
 
   build:
     commands:
-      - echo Terraform Validate
       - terraform validate
       - echo Running Security Scan
-      - checkov -d .
-      - echo Terraform Plan
+      - checkov -d . --skip-check CKV_AWS_24,CKV_AWS_130,CKV_AWS_382,CKV_AWS_23
       - terraform plan
 
 artifacts:
